@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON 3D VALENTINE BOOK</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@900&display=swap');
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* NEON HEARTS BACKGROUND */
+        .heart {
+            position: fixed;
+            color: #ff007f;
+            text-shadow: 0 0 10px #ff007f;
+            z-index: -1;
+            animation: float 4s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #00f2ff;
+            text-shadow: 0 0 20px #00f2ff;
+            margin: 20px 0;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+        }
+
+        /* 3D BOOK STRUCTURE */
+        .book-wrapper {
+            perspective: 1500px;
+            margin: 20px 0;
+        }
+
+        .book {
+            width: 320px;
+            height: 480px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #0a0a0a;
+            border: 3px solid #ff007f;
+            box-shadow: inset 0 0 30px rgba(255, 0, 127, 0.3), 0 0 20px #ff007f;
+            border-radius: 15px;
+            display: none; 
+            padding: 25px;
+            box-sizing: border-box;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            animation: flipIn 0.5s ease-out forwards;
+        }
+
+        .page.active { display: flex; }
+
+        @keyframes flipIn {
+            from { transform: rotateY(-90deg); opacity: 0; }
+            to { transform: rotateY(0deg); opacity: 1; }
+        }
+
+        h2 { color: #00f2ff; text-shadow: 0 0 10px #00f2ff; font-size: 1.4rem; margin-bottom: 15px; }
+        p { font-size: 0.95rem; line-height: 1.6; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* INPUTS & BUTTONS */
+        input {
+            background: rgba(0, 242, 255, 0.1);
+            border: 1px solid #00f2ff;
+            color: #fff;
+            padding: 12px;
+            width: 90%;
+            margin: 10px auto;
+            text-align: center;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .controls { margin-top: 25px; display: flex; gap: 15px; }
+
+        .btn {
+            background: transparent;
+            color: #ff007f;
+            border: 2px solid #ff007f;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff007f;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #ff007f;
+            color: white;
+            box-shadow: 0 0 25px #ff007f;
+        }
+
+        .btn:disabled { border-color: #444; color: #444; box-shadow: none; cursor: not-allowed; }
+
+        #result {
+            font-size: 1.8rem;
+            margin-top: 15px;
+            color: #00f2ff;
+            text-shadow: 0 0 15px #00f2ff;
+            font-family: 'Orbitron', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-title">NEON LOVE DIARY</div>
+
+<div class="book-wrapper">
+    <div class="book">
+        
+        <div class="page active" id="p0">
+            <h2>WELCOME</h2>
+            <p>ENTER YOUR NAME TO BEGIN:</p>
+            <input type="text" id="mainName" placeholder="APNA NAAM LIKHO" oninput="syncNames()">
+            <p style="margin-top: 20px; color: #ff007f;">CLICK NEXT TO OPEN THE BOOK</p>
+        </div>
+
+        <div class="page" id="p1">
+            <h2>FEB 7 - ROSE DAY</h2>
+            <p>PHOOLON JAISI HO ZINDAGI TUMHARI, KHUSHBU SE MEHKE DUNIYA TUMHARI, HUM TO EK GULAAB LEKAR AAYE HAIN, AAPKE KADMO MEIN RAKHNE KI KHWAHISH LAYE HAIN.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY ROSE DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p2">
+            <h2>FEB 8 - PROPOSE DAY</h2>
+            <p>KASOOR TO THA HI IN NIGAAHON KA, JO CHUPKE SE DEEDAAR KAR BAITHE, HUMNE TO KHAMOSH REHNE KI KOSHISH KI THI, PAR WO PYAR KA IKRAR KAR BAITHE.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY PROPOSE DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p3">
+            <h2>FEB 9 - CHOCOLATE DAY</h2>
+            <p>MITHAAS BHARI HAI HAR TARAF CHOCOLATE KI TARAH, TUM MILI HO MUJHE EK REHMAT KI TARAH, AB NA DOOR JANA KABHI MUJHSE TUM, REHNA MERI ZINDAGI MEIN IS CHOCOLATE KI TARAH.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY CHOCOLATE DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p4">
+            <h2>FEB 10 - TEDDY DAY</h2>
+            <p>YAADON KA YE PITARA TEDDY BANKE AAYA HAI, ISME CHHUPA MERA DHER SAARA PYAR AAYA HAI, JAB BHI TUMHARA DIL GHABRAYE TO ISSE GALE LAGA LENA, KYUNKI ISME MERA EHSAAS AAYA HAI.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY TEDDY DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p5">
+            <h2>FEB 11 - PROMISE DAY</h2>
+            <p>VAADA KARTE HAIN HAR MOD PAR SAATH NIBHAYENGE, CHAHE KUCH BHI HO JAYE KABHI NA CHHOD KE JAYENGE, MERI HAR KHUSHI TUMSE HI HAI AE SANAM, MARTE DAM TAK SIRF TUMHE HI CHAHENGE.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY PROMISE DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p6">
+            <h2>FEB 12 - HUG DAY</h2>
+            <p>EK BAAR BAS GALE LAGA LO MUJHE, APNI DUNIYA MEIN KAHIN CHHUPA LO MUJHE, SAARI DUNIYA SE DOOR KARKE AAJ, SIRF APNA BANA LO MUJHE.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY HUG DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p7">
+            <h2>FEB 13 - KISS DAY</h2>
+            <p>LABON SE LABON KA MILNA BHI KYA KAMAAL HOTA HAI, DO DILO KI DHADKAN MEIN EK NAYA SAWAAL HOTA HAI, JAB BHI CHHUTE HAIN HUM TUMHE MERI JAAN, IS DUNIYA KA SABSE KHUBSURAT HAAL HOTA HAI.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY KISS DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p8">
+            <h2>FEB 14 - VALENTINE'S DAY</h2>
+            <p>NA KOI DOOJA HAI NA KOI HOGA, MERA YE PYAR SIRF TUMHARE LIYE HOGA, HAR JANAM MEIN SIRF TUMHE HI MANGUNGA, KYUNKI MERA HAR LAMHA SIRF TUMHARE NAAM HOGA.</p>
+            <p style="color: #ff007f; margin-top:10px;">HAPPY VALENTINE'S DAY <span class="p-name">LOVE</span>!</p>
+        </div>
+
+        <div class="page" id="p9">
+            <h2 style="color: #ff007f;">GF & BF LOVE METER</h2>
+            <input type="text" id="boyName" placeholder="BOYFRIEND NAME">
+            <input type="text" id="girlName" placeholder="GIRLFRIEND NAME">
+            <button class="btn" onclick="checkLove()" style="margin-top: 10px; width: 100%;">CALCULATE LOVE</button>
+            <div id="result">? %</div>
+        </div>
+
+    </div>
+</div>
+
+<div class="controls">
+    <button class="btn" id="prevBtn" onclick="movePage(-1)" disabled>BACK</button>
+    <button class="btn" id="nextBtn" onclick="movePage(1)">NEXT</button>
+</div>
+
+<script>
+    let current = 0;
+    const total = 10;
+
+    function movePage(step) {
+        document.getElementById(`p${current}`).classList.remove('active');
+        current += step;
+        document.getElementById(`p${current}`).classList.add('active');
+
+        document.getElementById('prevBtn').disabled = (current === 0);
+        document.getElementById('nextBtn').disabled = (current === total - 1);
+    }
+
+    function syncNames() {
+        let val = document.getElementById('mainName').value.toUpperCase();
+        let spans = document.querySelectorAll('.p-name');
+        spans.forEach(s => s.innerText = val ? val : "LOVE");
+        // Also put this name in calculator automatically
+        document.getElementById('boyName').value = val;
+    }
+
+    function checkLove() {
+        let b = document.getElementById('boyName').value;
+        let g = document.getElementById('girlName').value;
+        if(!b || !g) { alert("PLEASE ENTER BOTH NAMES!"); return; }
+        
+        let score = Math.floor(Math.random() * 21) + 80; 
+        document.getElementById('result').innerText = score + "% LOVE";
+    }
+
+    // Heart Animation
+    setInterval(() => {
+        const h = document.createElement('div');
+        h.innerHTML = '❤️';
+        h.className = 'heart';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = Math.random() * 20 + 15 + 'px';
+        h.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 4000);
+    }, 300);
+</script>
+
+</body>
+</html>
